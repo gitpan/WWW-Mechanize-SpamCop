@@ -1,5 +1,8 @@
 Revision history for Perl extension WWW::Mechanize::SpamCop.
 
+0.03  Tue Aug  5 16:26:12 2003
+        - correct a few things and first world release
+
 0.02  Tue Aug  5 15:14:07 2003
         - correct a few things and first world release
 

@@ -1,6 +1,6 @@
 package WWW::Mechanize::SpamCop;
 
-# $Abso: abso/divers/mat/perl/WWW-Mechanize-SpamCop/SpamCop.pm,v 1.3 2003/08/05 13:18:02 mat Exp $
+# $Abso: abso/divers/mat/perl/WWW-Mechanize-SpamCop/SpamCop.pm,v 1.4 2003/08/05 14:28:00 mat Exp $
 
 #---[ pod head ]---{{{
 
@@ -43,7 +43,7 @@ use vars qw(@ISA $VERSION);
 
 @ISA = qw(WWW::Mechanize);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 #---[ sub new ]---{{{
 
@@ -69,16 +69,16 @@ sub new {
     croak 'You must specify a passwd'
 	unless ( exists( $p{passwd} ) );
 
-    my $login = delete($p{login});
-    my $passwd = delete($p{passwd});
+    my $login  = delete( $p{login} );
+    my $passwd = delete( $p{passwd} );
 
-    my $self  = $class->SUPER::new(%p);
+    my $self = $class->SUPER::new(%p);
 
-    $self->{host}   = 'mailsc.spamcop.net:80' || $p{host};
-    $self->{realm}  = 'your SpamCop account'  || $p{realm};
-    $self->{report} = 'Report Now'            || $p{report};
-    $self->{login}  = $p{login};
-    $self->{passwd} = $p{passwd};
+    $self->{host}   = $p{host}   || 'mailsc.spamcop.net:80';
+    $self->{realm}  = $p{realm}  || 'your SpamCop account';
+    $self->{report} = $p{report} || 'Report Now';
+    $self->{login}  = $login;
+    $self->{passwd} = $passwd;
 
     $self->credentials( $self->{host}, $self->{realm}, $self->{login}, $self->{passwd} );
 
@@ -150,12 +150,12 @@ sub report_all {
     my $self = shift;
     my ( $i, $j ) = ( 0, 0 );
     while ( my $r = $self->report_one ) {
-	$i++ if ($r == 1);
-	$j++ if ($r == 2);
+	$i++ if ( $r == 1 );
+	$j++ if ( $r == 2 );
     }
 
     return unless defined wantarray;
-    return (wantarray ? ( $i, $j ) : $i);
+    return ( wantarray ? ( $i, $j ) : $i );
 }
 
 #---}}}

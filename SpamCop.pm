@@ -52,7 +52,7 @@ $VERSION = '0.03';
 Create a new WWW::Mechanize::SpamCop object
 
 The required arguments are login and passwd, you can also pass it a host,
-defaulting to 'mailsc.spamcop.net:80' (the :80 is needed because of the
+defaulting to 'www.spamcop.net:80' (the :80 is needed because of the
 authentication), a realm, defaulting to 'your SpamCop account' which is the
 domain's realm for autentication. and a report default to 'Report Now', which
 is the name of the link on the web page.
@@ -74,16 +74,19 @@ sub new {
 
     my $self = $class->SUPER::new(%p);
 
-    $self->{host}   = $p{host}   || 'mailsc.spamcop.net:80';
+    $self->{host}   = $p{host}   || 'www.spamcop.net:80';
     $self->{realm}  = $p{realm}  || 'your SpamCop account';
     $self->{report} = $p{report} || 'Report Now';
     $self->{login}  = $login;
     $self->{passwd} = $passwd;
 
-    $self->credentials( $self->{host}, $self->{realm}, $self->{login}, $self->{passwd} );
-
     croak 'SomeThing went wrong'
 	unless $self->get("http://$self->{host}/");
+
+    $self->form_number(1);
+    $self->field('username', $self->{login});
+    $self->field('password', $self->{passwd});
+    $self->click() or return undef;
 
     return $self;
 }
@@ -124,6 +127,7 @@ sub report_one {
 	    return 2;
 	}
 
+	$self->form_name('sendreport');
 	$self->click() or return undef;
 
 	return 1;

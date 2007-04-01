@@ -43,7 +43,7 @@ use vars qw(@ISA $VERSION);
 
 @ISA = qw(WWW::Mechanize);
 
-$VERSION = '0.03';
+$VERSION = '0.05';
 
 #---[ sub new ]---{{{
 
@@ -176,10 +176,11 @@ L<WWW::Mechanize>
 =head1 AUTHOR
 
 Mathieu Arnold, E<lt>mat@cpan.orgE<gt>
+new maintainer: Aleksander Adamowski, E<lt>aleksander.adamowski@gmail.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Mathieu Arnold
+Copyright 2003,2007 by Mathieu Arnold, Aleksander Adamowski
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself. 

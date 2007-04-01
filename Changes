@@ -1,5 +1,8 @@
 Revision history for Perl extension WWW::Mechanize::SpamCop.
 
+0.05  Mon Apr 02 01:06:40 2007
+        - only added new maintainer contact
+
 0.04  Tue Mar 27 12:37:48 2007
         - switch to form-based authentication and accomodate latest SpamCop service version
 

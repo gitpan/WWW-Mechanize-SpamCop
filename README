@@ -1,4 +1,4 @@
-WWW/Mechanize/SpamCop version 0.04
+WWW/Mechanize/SpamCop version 0.05
 ==================================
 
 INSTALLATION
@@ -18,7 +18,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003 Mathieu Arnold
+Copyright (C) 2003,2007 Mathieu Arnold, Aleksander Adamowski
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

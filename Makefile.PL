@@ -11,7 +11,7 @@ WriteMakefile(
 	?                                           ## Add these new keywords supported since 5.005
 	    (
 	    ABSTRACT_FROM => 'SpamCop.pm',                     # retrieve abstract from module
-	    AUTHOR        => 'Mathieu Arnold <mat@cpan.org>'
+	    AUTHOR        => 'Mathieu Arnold <mat@cpan.org>, Aleksander Adamowski <aleksander.adamowski@gmail.com>'
 	    )
 	: ()
     ),

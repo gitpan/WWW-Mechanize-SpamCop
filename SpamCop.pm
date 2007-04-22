@@ -43,7 +43,7 @@ use vars qw(@ISA $VERSION);
 
 @ISA = qw(WWW::Mechanize);
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 #---[ sub new ]---{{{
 
@@ -77,6 +77,7 @@ sub new {
     $self->{host}   = $p{host}   || 'www.spamcop.net:80';
     $self->{realm}  = $p{realm}  || 'your SpamCop account';
     $self->{report} = $p{report} || 'Report Now';
+    $self->{sendformname} = $p{sendformname} || 'sendreport';
     $self->{login}  = $login;
     $self->{passwd} = $passwd;
 
@@ -123,14 +124,24 @@ sub report_one {
     my $self = shift;
 
     if ( $self->follow_link( text => $self->{report} ) ) {
-	if ( $self->find_link( text => $self->{report} ) ) {
-	    return 2;
+	# Probably makes no sense because currently there's a submission form instead of link:
+	#if ( $self->find_link( text => $self->{report} ) ) {
+	#    return 2;
+	#}
+
+	my @forms = $self->forms();
+	# Look for "send report" form:
+	if (scalar(@forms) < 1) { return undef };
+	@forms = grep { defined ($_->attr("name")) && $_->attr("name") eq $self->{sendformname}} @forms;
+	# If a form with the proper name is found, submit report:
+	if (@forms) {
+		$self->form_name($self->{sendformname});
+		$self->click() or return undef;
+		return 1;
+	} else {
+		return 2;
 	}
 
-	$self->form_name('sendreport');
-	$self->click() or return undef;
-
-	return 1;
     } else {
 	return undef;
     }

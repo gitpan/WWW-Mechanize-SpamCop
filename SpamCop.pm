@@ -43,7 +43,7 @@ use vars qw(@ISA $VERSION);
 
 @ISA = qw(WWW::Mechanize);
 
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 #---[ sub new ]---{{{
 
@@ -77,6 +77,8 @@ sub new {
     $self->{host}   = $p{host}   || 'www.spamcop.net:80';
     $self->{realm}  = $p{realm}  || 'your SpamCop account';
     $self->{report} = $p{report} || 'Report Now';
+    $self->{regex_remove_unreported} = $p{regex_remove_unreported} || qr/^Remove all unreported/;
+    $self->{regex_removed_count} = $p{regex_removed_count} || qr/Removed\s+([0-9]+)\s+unreported/i;
     $self->{sendformname} = $p{sendformname} || 'sendreport';
     $self->{login}  = $login;
     $self->{passwd} = $passwd;
@@ -171,6 +173,32 @@ sub report_all {
 
     return unless defined wantarray;
     return ( wantarray ? ( $i, $j ) : $i );
+}
+
+#---}}}
+
+#---[ sub remove_unreported ]---{{{
+
+=head2 remove_unreported
+
+
+Removes all unreported spams. Returns the number of removed spams as scalar value.
+
+=cut
+
+sub remove_unreported {
+    my $self = shift;
+    my $count = 0;
+    if ( $self->follow_link( text_regex => $self->{regex_remove_unreported} ) ) {
+      my $content = $self->content( format => "text" );
+      my $regex_removed_count = $self->{regex_removed_count};
+      if ($content =~ qr/$regex_removed_count/si) {
+        $count = $1;
+      }
+      return $count;
+    } else {
+      return 0;
+    } 
 }
 
 #---}}}

@@ -43,7 +43,7 @@ use vars qw(@ISA $VERSION);
 
 @ISA = qw(WWW::Mechanize);
 
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 #---[ sub new ]---{{{
 
@@ -215,7 +215,7 @@ L<WWW::Mechanize>
 =head1 AUTHOR
 
 Mathieu Arnold, E<lt>mat@cpan.orgE<gt>
-new maintainer: Aleksander Adamowski, E<lt>aleksander.adamowski@gmail.comE<gt>
+new maintainer: Aleksander Adamowski, E<lt>cpan@olo.org.plE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
